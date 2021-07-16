@@ -1,0 +1,75 @@
+# 리눅스 명령어
+
+ls : 디렉토리 내용 보기 ( 현 위치)
+pwd : 내 경로 보기
+cd / : 최상위 디렉토리로 간다
+ls -al : -가 있으면 옵션임 : 디렉토리 상세하게 보기
+cd ~ : 우리가 사용, 작업할 디렉토리 공간
+
+10 글자
+x xxxx xx x  계정명  계정명
+d rwxr xr x  root    root
+             최고관리자 사용가능한자
+이런식으로 되어있는데 
+1. 형식을 일컫는말 d : directory
+
+# backend setting ...
+sudo apt-get update
+sudo apt-get install -y build-essetial
+sudo apt-get install curl
+curl -sL http://deb.nodesource.com/setup_14.x | sudo -E bash --
+sudo apt-get install -y node.js
+
+확인 방법
+node -v 
+npm -v
+
+#mariadb 설치
+sudo apt-get install mariadb-server 
+sudo apt-get install mariadb-client
+
+#mariadb 설치확인
+mariadb --version
+
+#mariadb 실행하기
+sudo systemctl status mariadb
+
+// 슈퍼계정으로 접근하겠다 - ubuntu 에서 root로 바뀜
+sudo su
+mysql_secure_installation
+
+// 확인하기
+mysql
+show databases
+use mysql
+UPDATE user SET password = password('원하는비밀번호') WHERE user = 'root';
+- 구버전
+
+set password for 'root'@'localhost' = PASSWORD('root');
+- 신버전
+> 여기에 같히면
+' 쓰고 ; 이렇게 하면 된다
+
+select user,host,plugin from user;
+
++-------------+-----------+-----------------------+
+| User        | Host      | plugin                |
++-------------+-----------+-----------------------+
+| root        | localhost | mysql_native_password |
+| mariadb.sys | localhost | mysql_native_password |
++-------------+-----------+-----------------------+
+
+plugin 이 mysql_native_password 이렇게 되어있는지 확인
+
+아니라면
+
+update user set plugin='mysql_native_password' where user = 'root'
+
+FLUSH PRIVILEGES;   // 마지막에 한번만 실행시키면 된다 - db 실행시켜준다 그런 의미
+
+
+root 계정에 접속 된 상태에서
+ctrl + c 눌러서 mysql 접속 끊고 exit 입력후 root 걔정 빠져나오기
+
+ubuntu@ip-172-31-2-242 : // 이렇게 우분투로 돌아오면
+mysql -uroot -p"root" 이렇게 써서 "root"는 비밀번호임
